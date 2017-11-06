@@ -16,6 +16,7 @@ import {
   Slide,
   Text
 } from "spectacle";
+import CodeSlide from 'spectacle-code-slide';
 
 // Import image preloader util
 import preloader from "spectacle/lib/utils/preloader";
@@ -188,7 +189,7 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} caps lineHeight={1} textColor="secondary">
-            Demo 1
+            Demo #1
           </Heading>
           <Appear>
             <Heading size={1} fit caps lineHeight={1} textColor="tertiary">
@@ -202,6 +203,24 @@ export default class Presentation extends React.Component {
           </Heading>
           {<Image height="70vh" src={ images.circuitBusyflag.replace("/", "") } />}
         </Slide>
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/busyflag.example")}
+          ranges={[
+            { loc: [0, 5], title: "Busy Flag" },
+            { loc: [2, 3], note: "Johnny Five" },
+            { loc: [29, 38], note: "Set up button components" },
+            { loc: [47, 50], note: "Set up LED components" },
+            { loc: [57, 73], note: "Add event listeners" },
+            { loc: [62, 67], xnote: "For example, the green button" },
+            { loc: [63, 64] },
+            { loc: [51, 56] },
+            { loc: [64, 65] },
+            { loc: [65, 66] },
+            { loc: [26, 27] },
+            { loc: [6, 12], note: "Slack API request" },
+          ]} />
         <Slide transition={["fade"]} bgColor="primary">
           {/* <Image height="80vh" src={ images.busyflagCircuit.replace("/", "") } /> */}
           <Text textColor="quartenary">**Code for busy flag, include gh repo link**</Text>
