@@ -37,8 +37,10 @@ const images = {
   interaction: require("../assets/interaction_diagram.svg"),
   physical: require("../assets/art-mco-lets-get-physical-blank.png"),
   circuitBusyflag: require("../assets/circuit-busyflag.png"),
+  circuitShootyLasers: require("../assets/shooty_schem.png"),
   physicalcomp: require("../assets/art-mco-lets-get-physical-computing.png"),
-  markdown: require("../assets/markdown.png")
+  markdown: require("../assets/markdown.png"),
+  warningEpic: require("../assets/warning-sign.png")
 };
 
 preloader(images);
@@ -64,6 +66,18 @@ export default class Presentation extends React.Component {
           <BlockQuote>
             <Quote>The greatest lunch and learn presentation all week!</Quote>
             <Cite>You, probably</Cite>
+          </BlockQuote>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <BlockQuote>
+            <Quote>He just made that up... he can't possibly know if we will like this. Is he going to be making up quotes the whole time?</Quote>
+            <Cite>I heard you say it</Cite>
+          </BlockQuote>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
+          <BlockQuote>
+            <Quote>No</Quote>
+            <Cite>Me</Cite>
           </BlockQuote>
         </Slide>
         <Slide transition={["fade"]} bgColor="black">
@@ -152,7 +166,11 @@ export default class Presentation extends React.Component {
               <ListItem>🚀 Science & exploration</ListItem>
               <ListItem>🖼️ Art (dynamic, interactive)</ListItem>
               <ListItem>🕹️ Games </ListItem>
-              <Appear><ListItem> ... and it's fun! 🎉 </ListItem></Appear>
+              <Appear><ListItem>🎉 Plus it's fun! 🎉 </ListItem></Appear>
+              {<Appear>
+                <ListItem> OK and for serious business 😐💼 </ListItem>
+              </Appear>}
+              <Appear><Text textColor="primary">...I guess</Text></Appear>
             </List>
           </Appear>
         </Slide>
@@ -213,17 +231,46 @@ export default class Presentation extends React.Component {
             { loc: [29, 38], note: "Set up button components" },
             { loc: [47, 50], note: "Set up LED components" },
             { loc: [57, 73], note: "Add event listeners" },
-            { loc: [62, 67], xnote: "For example, the green button" },
-            { loc: [63, 64] },
+            { loc: [62, 67], note: "For example, the green button" },
+            { loc: [63, 64], note: "First turn off all LEDs" },
             { loc: [51, 56] },
-            { loc: [64, 65] },
-            { loc: [65, 66] },
+            { loc: [64, 65], note: "Turn on the green one" },
+            { loc: [65, 66], note: "Set appropriate Slack status" },
             { loc: [26, 27] },
             { loc: [6, 12], note: "Slack API request" },
           ]} />
-        <Slide transition={["fade"]} bgColor="primary">
-          {/* <Image height="80vh" src={ images.busyflagCircuit.replace("/", "") } /> */}
-          <Text textColor="quartenary">**Code for busy flag, include gh repo link**</Text>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={3} caps lineHeight={1} textColor="quartenary">
+            Second Idea
+          </Heading>
+          <Appear>
+            <Text textColor="quartenary">Sensor data to Redux actions</Text>
+          </Appear>
+          <Appear>
+            <Text textColor="quartenary">👉🔘 to 🔄</Text>
+          </Appear>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={3} caps lineHeight={1} textColor="quartenary">
+            Things didn't go smoothly
+          </Heading>
+          <Appear>
+            <Text textColor="quartenary">Use Johnny-Five with NW.js to allow USB access</Text>
+          </Appear>
+          <Appear>
+            <Text textColor="quartenary">Rabbit hole of problems reaching USB</Text>
+          </Appear>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={3} caps lineHeight={1} textColor="quartenary">
+            On to Plan B
+          </Heading>
+          <Appear>
+            <Text textColor="quartenary">How to bridge that gap...</Text>
+          </Appear>
+          <Appear>
+            <Text textColor="quartenary">Web Sockets! 🔌</Text>
+          </Appear>
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} caps lineHeight={1} textColor="secondary">
@@ -237,6 +284,9 @@ export default class Presentation extends React.Component {
           <Text margin="10px 0 0" textColor="secondary" size={3}>
             I need a volunteer...
           </Text>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="white">
+          <Image height="70vh" src={ images.warningEpic.replace("/", "") } />
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} caps lineHeight={1} textColor="secondary">
@@ -252,6 +302,15 @@ export default class Presentation extends React.Component {
           </Text>
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="secondary">
+            Hype Five: Hardware
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={3}>
+            images.circuitHypeFive
+          </Text>
+          {/* {<Image height="70vh" src={ images.circuitHypeFive.replace("/", "") } />} */}
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} caps lineHeight={1} textColor="secondary">
             Demo 4
           </Heading>
@@ -265,14 +324,42 @@ export default class Presentation extends React.Component {
           </Text>
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-            What is Physical Computing?
-          </Heading> 
+          <Heading size={4} caps lineHeight={1} textColor="secondary">
+            Shooty Lasers: Hardware
+          </Heading>
+          {<Image height="60vh" src={ images.circuitShootyLasers.replace("/", "") } />}
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
-            What is Physical Computing?
-          </Heading> 
+            Problem: my head exloded. Where can I learn more?
+          </Heading>
+          <Appear>
+            <List textColor="tertiary" size={4}>
+              <ListItem>🖥️ Tons of resources online</ListItem>
+              <ListItem>📚 Get a kit and start hacking!</ListItem>
+              <ListItem bold>🎉Come to IoT guild!<br />(Alternating Thursdays at 2)</ListItem>
+              <ListItem>or...</ListItem>
+            </List>
+          </Appear>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary">
+          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+            A.M.A. Time.
+          </Heading>
+          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+            Questions?
+          </Heading>
+          <Text margin="10px 0 0" textColor="secondary" size={2}>
+            🙋‍♂️🙇‍♀️🙋‍♀️🙆‍♀️🙅‍♂️🙇‍♂️😴🙋‍♂️
+          </Text>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="primary">
+          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+            Thanks!
+          </Heading>
+          <Heading margin="10px 0 0" textColor="secondary" size={1}>
+            🙏
+          </Heading>
         </Slide>
         <Slide transition={["fade"]} bgColor="tertiary">
           <Heading size={6} textColor="primary" caps>Typography</Heading>
