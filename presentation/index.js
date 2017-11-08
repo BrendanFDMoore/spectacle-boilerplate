@@ -32,12 +32,13 @@ require("spectacle/lib/themes/default/index.css");
 const images = {
   city: require("../assets/city.jpg"),
   afraidToAsk: require("../assets/afraid-to-ask.jpg"),
-  kat: require("../assets/kat.png"),
+  bootyBump: require("../assets/bootybump.png"),
   logo: require("../assets/formidable-logo.svg"),
   interaction: require("../assets/interaction_diagram.svg"),
   physical: require("../assets/art-mco-lets-get-physical-blank.png"),
   circuitBusyflag: require("../assets/circuit-busyflag.png"),
   circuitShootyLasers: require("../assets/shooty_schem.png"),
+  circuitHypeFive: require("../assets/hypefive_schem.png"),
   physicalcomp: require("../assets/art-mco-lets-get-physical-computing.png"),
   markdown: require("../assets/markdown.png"),
   warningEpic: require("../assets/warning-sign.png")
@@ -156,7 +157,7 @@ export default class Presentation extends React.Component {
         </Slide>
         <Slide transition={["fade"]} bgColor="tertiary">
           <Heading size={1} caps lineHeight={1} textColor="secondary">
-            Why?
+            but...Why?
           </Heading>
           <Appear>
             <List textColor="primary" style={{listStyleType: 'none'}}>
@@ -171,6 +172,19 @@ export default class Presentation extends React.Component {
                 <ListItem> OK and for serious business 😐💼 </ListItem>
               </Appear>}
               <Appear><Text textColor="primary">...I guess</Text></Appear>
+            </List>
+          </Appear>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={1} caps lineHeight={1} textColor="secondary">
+            And why you?
+          </Heading>
+          <Appear>
+            <List textColor="primary" style={{listStyleType: 'none'}}>
+              <ListItem>⚙️ Electrical Engineering background</ListItem>
+              <ListItem>🛠️ Always loved building things </ListItem>
+              <ListItem>🚀 JP Cote, Web Unleashed 2016</ListItem>
+              <Appear><ListItem>🎉 Plus it's fun! 🎉 </ListItem></Appear>
             </List>
           </Appear>
         </Slide>
@@ -255,61 +269,206 @@ export default class Presentation extends React.Component {
             Things didn't go smoothly
           </Heading>
           <Appear>
-            <Text textColor="quartenary">Use Johnny-Five with NW.js to allow USB access</Text>
+            <Text textColor="quartenary">Johnny-Five with NW.js is supposed to allow USB access</Text>
           </Appear>
           <Appear>
-            <Text textColor="quartenary">Rabbit hole of problems reaching USB</Text>
+            <Text textColor="quartenary">⚫ 🐇 </Text>
           </Appear>
         </Slide>
         <Slide transition={["fade"]} bgColor="tertiary">
-          <Heading size={3} caps lineHeight={1} textColor="quartenary">
-            On to Plan B
-          </Heading>
+          <Text textColor="quartenary">️
+            Johnny-Five 💔 React+Redux app
+          </Text>
           <Appear>
-            <Text textColor="quartenary">How to bridge that gap...</Text>
+            <Heading size={3} caps lineHeight={1} textColor="quartenary">
+              On to Plan B
+            </Heading>
+          </Appear>
+          <Appear>
+            <Text textColor="quartenary">How can we bridge that gap...</Text>
           </Appear>
           <Appear>
             <Text textColor="quartenary">Web Sockets! 🔌</Text>
           </Appear>
-        </Slide>
-        <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={1} caps lineHeight={1} textColor="secondary">
-            Demo 2
-          </Heading>
-          <Appear>          
-            <Heading size={1} fit caps lineHeight={1} textColor="tertiary">
-              Johnny Rx
-            </Heading>
+          <Appear>
+            <Text textColor="quartenary">️
+              Node+J5 ↔️ Socket.io ↔️ React+Redux app
+            </Text>
           </Appear>
-          <Text margin="10px 0 0" textColor="secondary" size={3}>
-            I need a volunteer...
-          </Text>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={3} caps lineHeight={1} textColor="quartenary">
+            Well what does that look like?
+          </Heading>
+          <Appear>
+            <Text textColor="quartenary">Let's find out!</Text>
+          </Appear>
         </Slide>
         <Slide transition={["fade"]} bgColor="white">
           <Image height="70vh" src={ images.warningEpic.replace("/", "") } />
         </Slide>
-        <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={1} caps lineHeight={1} textColor="secondary">
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/nes-j5.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [0, 3], title: "J5 Board" },
+            { loc: [0, 9], note: "Config for buttons" },
+            { loc: [51, 58], note: "Setup J5 and Socket.io" },
+            { loc: [81, 94], note: "Set up buttons from config" },
+            { loc: [87, 89], note: "Socket messages" },
+          ]} />
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/nes-socket.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [0, 1], note: "Socket server" },
+            { loc: [0, 4], note: "Setup Socket.io" },
+            { loc: [17, 21], note: "Listen for J5 events" },
+            { loc: [19, 20], note: "Broadcast to all clients" },
+          ]} />
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/nes-epic.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [0, 5], title: "App epics" },
+            { loc: [16, 25], note: "Initialize socket client" },
+            { loc: [17, 18], note: "On app init..." },
+            { loc: [20, 24], note: "Listen and create board event messages" },
+            { loc: [49, 56], note: "Watch those board events" },
+            { loc: [51, 52], note: "Parse them" },
+            { loc: [34, 42] },
+            { loc: [52, 54], note: "Filter them" },
+            { loc: [54, 55], note: "Dispatch an action" },
+            { loc: [43, 48], note: "Depending on the event data" },
+          ]} />
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/nes-select.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [4, 9], note: "Fallback" },
+            { loc: [10, 14], note: "Get the state for some button by pin" },
+            { loc: [15, 19], note: "etc" },
+            { loc: [50, 60], note: "Figure out the whole controller" },
+          ]} />
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={1} caps lineHeight={1} textColor="quartenary">
+            Demo #2
+          </Heading>
+          <Appear>          
+            <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+              NES Controller
+            </Heading>
+          </Appear>
+          <Text margin="10px 0 0" textColor="quartenary" size={3}>
+            I need a volunteer...
+          </Text>
+        </Slide>
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/tetris-actions.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [0, 1], title: "Key-based Actions" },
+            { loc: [9, 15], node: "Down key" },
+            { loc: [30, 36], node: "Rotate key, etc" },
+          ]} />
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/tetris-wat.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [0, 15], title: "😕" },
+            { loc: [3, 18], title: "😐" },
+            { loc: [6, 21], title: "😶" },
+            { loc: [9, 24], title: "😳" },
+            { loc: [12, 27], title: "😳😳" },
+            { loc: [15, 30], title: "😳😳😳" },
+            { loc: [23, 24], title: "DO NOT WANT" },
+          ]} />
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/tetris-store.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [1, 2], title: "😌" },
+            { loc: [14, 19], title: "☺️" },
+          ]} />
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/tetris-epic.example")}
+          style={{fontSize: '0.7em'}}
+          ranges={[
+            { loc: [18, 28], title: "Helloooo Johnny" },
+            { loc: [51, 58], note: "Same as before: parse the J5 events" },
+            { loc: [59, 69], note: "Map pins to action creators per button" },
+            { loc: [70, 79], note: "Dispatch with boolean payload for state" },
+          ]} />
+        <Slide transition={["fade"]} bgColor="quartenary">
+          <Heading size={3} caps lineHeight={1} textColor="secondary">
+            Third Idea
+          </Heading>
+          <Appear>
+            <Text textColor="tertiary">A robot to help you celebrate an accomplishment, big or small</Text>
+          </Appear>
+          <Appear>
+            <div>
+            <Image height="40vh" src={ images.bootyBump.replace("/", "") } />
+            <Text size={4} textColor="tertiary">Inspired by Stacey Mulcahy's Booty Bump</Text>
+            <Text size={4} textColor="tertiary">(though hers is cooler)</Text>
+            </div>
+          </Appear>
+        </Slide>
+        <Slide transition={["fade"]} bgColor="quartenary">
+          <Heading size={1} caps lineHeight={1} textColor="tertiary">
             Demo 3
           </Heading>
           <Appear>
-            <Heading size={1} fit caps lineHeight={1} textColor="tertiary">
+            <Heading size={1} fit caps lineHeight={1} textColor="secondary">
               Hype Five
             </Heading>
           </Appear>
-          <Text margin="10px 0 0" textColor="secondary" size={3}>
+          <Text margin="10px 0 0" textColor="tertiary" size={3}>
             I need a few volunteers
           </Text>
         </Slide>
-        <Slide transition={["fade"]} bgColor="primary">
+        <Slide transition={["fade"]} bgColor="quartenary">
           <Heading size={4} caps lineHeight={1} textColor="secondary">
             Hype Five: Hardware
           </Heading>
-          <Text margin="10px 0 0" textColor="secondary" size={3}>
-            images.circuitHypeFive
-          </Text>
-          {/* {<Image height="70vh" src={ images.circuitHypeFive.replace("/", "") } />} */}
+          <Image height="70vh" src={ images.circuitHypeFive.replace("/", "") } />
         </Slide>
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/hype.example")}
+          ranges={[
+            { loc: [0, 5], title: "Hype ✋ Five!" },
+            { loc: [10, 16], note: "Servo" },
+            { loc: [17, 22], note: "Force Sensitive Resistor" },
+            { loc: [23, 27], note: "Proximity" },
+            { loc: [28, 29], note: "Piezo/speaker" },
+            { loc: [131,134], note: "Proximity event" },
+            { loc: [118, 128], note: "Check distance" },
+            { loc: [111, 115], note: "Initiate!" },
+            { loc: [83, 92], xnote: "" },
+            { loc: [30, 42], note: "Feedback on trigger 🔈" },
+            { loc: [78, 82], xnote: "" },
+            { loc: [100, 106], note: "Force Sensor event" },
+            { loc: [93, 99], note: "OMG YES! 🎉" },
+            { loc: [67, 72], note: "Too slow 😭" },
+          ]} />
         <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} caps lineHeight={1} textColor="secondary">
             Demo 4
@@ -334,7 +493,7 @@ export default class Presentation extends React.Component {
             Problem: my head exloded. Where can I learn more?
           </Heading>
           <Appear>
-            <List textColor="tertiary" size={4}>
+            <List textColor="tertiary" size={4} style={{listStyleType: 'none'}}>
               <ListItem>🖥️ Tons of resources online</ListItem>
               <ListItem>📚 Get a kit and start hacking!</ListItem>
               <ListItem bold>🎉Come to IoT guild!<br />(Alternating Thursdays at 2)</ListItem>
@@ -350,7 +509,7 @@ export default class Presentation extends React.Component {
             Questions?
           </Heading>
           <Text margin="10px 0 0" textColor="secondary" size={2}>
-            🙋‍♂️🙇‍♀️🙋‍♀️🙆‍♀️🙅‍♂️🙇‍♂️😴🙋‍♂️
+            🙋‍♂️🙇‍♀️🙋‍♀️🙅‍♂️🙆‍♀️🙇‍♂️😴🙋‍♂️
           </Text>
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
@@ -358,10 +517,10 @@ export default class Presentation extends React.Component {
             Thanks!
           </Heading>
           <Heading margin="10px 0 0" textColor="secondary" size={1}>
-            🙏
+            ⚡🎸🤘
           </Heading>
         </Slide>
-        <Slide transition={["fade"]} bgColor="tertiary">
+        {/* <Slide transition={["fade"]} bgColor="tertiary">
           <Heading size={6} textColor="primary" caps>Typography</Heading>
           <Heading size={1} textColor="secondary">Heading 1</Heading>
           <Heading size={2} textColor="secondary">Heading 2</Heading>
@@ -384,7 +543,7 @@ export default class Presentation extends React.Component {
             <Quote>Example Quote</Quote>
             <Cite>Author</Cite>
           </BlockQuote>
-        </Slide>
+        </Slide> */}
       </Deck>
     );
   }

@@ -1,8 +1,3 @@
-/**
- * @module Epics/JohnnyFive
- * @desc User
- */
-
 import Rx from 'rxjs';
 import io from 'socket.io-client';
 import keyMirror from 'fbjs/lib/keyMirror';
@@ -62,7 +57,7 @@ export function buttonEvents(action$) {
     .map(e => (buttonEventActionMap[e.event](e.pin)));
 }
 
-const johnnyButtonToTetrisButtonActionCreators = {
+const johnnyButtonActionMap = {
   4: keyboard.drop,
   3: keyboard.down,
   2: keyboard.left,
@@ -75,10 +70,10 @@ const johnnyButtonToTetrisButtonActionCreators = {
 
 export function mapButtonPress(action$) {
   return action$.ofType(ActionTypes.JOHNNY_FIVE_BUTTON_PRESS)
-    .map(e => johnnyButtonToTetrisButtonActionCreators[e.payload.pin](true));
+    .map(e => johnnyButtonActionMap[e.payload.pin](true));
 }
 
 export function mapButtonRelease(action$) {
   return action$.ofType(ActionTypes.JOHNNY_FIVE_BUTTON_RELEASE)
-    .map(e => johnnyButtonToTetrisButtonActionCreators[e.payload.pin](false));
+    .map(e => johnnyButtonActionMap[e.payload.pin](false));
 }
