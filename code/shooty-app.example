@@ -1,0 +1,79 @@
+/**
+ * @module Epics/JohnnyFive
+ * @desc User
+ */
+
+import Rx from 'rxjs';
+import io from 'socket.io-client';
+
+import { ActionTypes } from 'constants/index';
+import { startGame, stopGame, redTarget, redHit, redMiss, greenTarget, greenHit, greenMiss } from 'actions';
+
+const socketconfig = require('../../../socket/config');
+
+const shootyLasersEventStream = new Rx.Subject();
+const socket = io(socketconfig.ADDRESS);
+
+const mapShootyEventToAction = {
+  startGame,
+  stopGame,
+  redTarget,
+  redHit,
+  redMiss,
+  greenTarget,
+  greenHit,
+  greenMiss,
+};
+
+export function shootyInitListener(action$) {
+  return action$.ofType(ActionTypes.JOHNNY_FIVE_INITIALIZE)
+    .first()
+    .flatMap(() => {
+      socket.on('shooty event', (event) => {
+        if (Object.keys(mapShootyEventToAction).includes(event)) {
+          shootyLasersEventStream.next(mapShootyEventToAction[event]());
+        }
+      });
+      return shootyLasersEventStream;
+    });
+}
+
+...
+
+[ActionTypes.SHOOTY_LASERS_START_GAME](state, action) {
+  return Object.assign({}, state, {
+    started: true,
+    // startTime: new Date(),
+    redScore: 0,
+    greenScore: 0,
+    target: null,
+  });
+},
+[ActionTypes.SHOOTY_LASERS_STOP_GAME](state, action) {
+  return Object.assign({}, state, {
+    started: false,
+    target: null,
+  });
+},
+[ActionTypes.SHOOTY_LASERS_RED_TARGET](state, action) {
+  return Object.assign({}, state, {
+    target: 'red',
+  });
+},
+[ActionTypes.SHOOTY_LASERS_GREEN_TARGET](state, action) {
+  return Object.assign({}, state, {
+    target: 'green',
+  });
+},
+[ActionTypes.SHOOTY_LASERS_RED_HIT](state, action) {
+  return Object.assign({}, state, {
+    target: null,
+    redScore: state.redScore + HIT_SCORE,
+  });
+},
+[ActionTypes.SHOOTY_LASERS_RED_MISS](state, action) {
+  return Object.assign({}, state, {
+    target: null,
+    redScore: state.redScore + MISS_SCORE,
+  });
+},

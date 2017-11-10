@@ -41,7 +41,9 @@ const images = {
   circuitHypeFive: require("../assets/hypefive_schem.png"),
   physicalcomp: require("../assets/art-mco-lets-get-physical-computing.png"),
   markdown: require("../assets/markdown.png"),
-  warningEpic: require("../assets/warning-sign.png")
+  pressStart: require("../assets/press-start.png"),
+  warningEpic: require("../assets/warning-sign.png"),
+  whackMole: require("../assets/whack-a-mole.gif")
 };
 
 preloader(images);
@@ -63,6 +65,9 @@ export default class Presentation extends React.Component {
   render() {
     return (
       <Deck transition={["zoom", "slide"]} transitionDuration={500} theme={theme}>
+        <Slide transition={["fade"]} bgColor="black">
+          <Image height="80vh" src={ images.pressStart.replace("/", "") } />
+        </Slide>
         <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
           <BlockQuote>
             <Quote>The greatest lunch and learn presentation all week!</Quote>
@@ -151,7 +156,8 @@ export default class Presentation extends React.Component {
               <ListItem>Arduino</ListItem>
               <ListItem>Raspberry Pi</ListItem>
               <ListItem>ESP / NodeMCU</ListItem>
-              <ListItem>Custom integrated circuits</ListItem>
+              <ListItem>Typical PC</ListItem>
+              <ListItem>A huge assortment of other stuff</ListItem>
             </List>
           </Appear>          
         </Slide>
@@ -183,7 +189,7 @@ export default class Presentation extends React.Component {
             <List textColor="primary" style={{listStyleType: 'none'}}>
               <ListItem>⚙️ Electrical Engineering background</ListItem>
               <ListItem>🛠️ Always loved building things </ListItem>
-              <ListItem>🚀 JP Cote, Web Unleashed 2016</ListItem>
+              <ListItem>🚀 JP Cote and Stacey Mulcahy talks</ListItem>
               <Appear><ListItem>🎉 Plus it's fun! 🎉 </ListItem></Appear>
             </List>
           </Appear>
@@ -239,6 +245,7 @@ export default class Presentation extends React.Component {
           transition={["zoom"]}
           lang="js"
           code={require("raw-loader!../code/busyflag.example")}
+          style={{fontSize: '0.7em'}}
           ranges={[
             { loc: [0, 5], title: "Busy Flag" },
             { loc: [2, 3], note: "Johnny Five" },
@@ -325,8 +332,9 @@ export default class Presentation extends React.Component {
           code={require("raw-loader!../code/nes-socket.example")}
           style={{fontSize: '0.7em'}}
           ranges={[
-            { loc: [0, 1], note: "Socket server" },
+            { loc: [0, 1], title: "Socket server" },
             { loc: [0, 4], note: "Setup Socket.io" },
+            { loc: [7, 8], note: "when we get a connection" },
             { loc: [17, 21], note: "Listen for J5 events" },
             { loc: [19, 20], note: "Broadcast to all clients" },
           ]} />
@@ -426,7 +434,6 @@ export default class Presentation extends React.Component {
             <div>
             <Image height="40vh" src={ images.bootyBump.replace("/", "") } />
             <Text size={4} textColor="tertiary">Inspired by Stacey Mulcahy's Booty Bump</Text>
-            <Text size={4} textColor="tertiary">(though hers is cooler)</Text>
             </div>
           </Appear>
         </Slide>
@@ -453,6 +460,7 @@ export default class Presentation extends React.Component {
           transition={["zoom"]}
           lang="js"
           code={require("raw-loader!../code/hype.example")}
+          style={{fontSize: '0.8em'}}          
           ranges={[
             { loc: [0, 5], title: "Hype ✋ Five!" },
             { loc: [10, 16], note: "Servo" },
@@ -488,7 +496,49 @@ export default class Presentation extends React.Component {
           </Heading>
           {<Image height="60vh" src={ images.circuitShootyLasers.replace("/", "") } />}
         </Slide>
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/shooty-j5.example")}
+          style={{fontSize: '0.8em'}}          
+          ranges={[
+            { loc: [3, 4], title: "Shooty Lasers!" },
+            { loc: [0, 10], note: "Socket setup" },
+            { loc: [16, 25], note: "Config & state variables" },
+            { loc: [27, 28], note: "Relay component" },
+            { loc: [28, 33], note: "Solenoid" },
+            { loc: [33, 38], note: "Light Sensor" },
+            { loc: [38, 46], note: "Buttons" },
+            { loc: [47, 57], note: "Start the game via button" },
+            { loc: [115, 124], note: "Game loop" },
+            { loc: [80, 91], note: "Target sequence" },
+            { loc: [88, 89], xnote: "" },
+            { loc: [67, 72], note: "Raise the target" },
+            { loc: [89, 90], xnote: "" },
+            { loc: [99, 105], note: "Too slow!" },
+            { loc: [106, 110], note: "LDR senses light, hit!" },
+            { loc: [92, 98], note: "OMG YES! 🎉" },
+            { loc: [58, 66], note: "Why stop? But, ok." },
+          ]} />
+        <CodeSlide
+          transition={["zoom"]}
+          lang="js"
+          code={require("raw-loader!../code/shooty-app.example")}
+          style={{fontSize: '0.8em'}}          
+          ranges={[
+            { loc: [13, 15], note: "Usual setup" },
+            { loc: [27, 39], note: "Watch and map shooty events" },
+            { loc: [16, 26], note: "Action creator names match events" },
+            { loc: [42, 51], note: "Reset on start" },
+            { loc: [67, 78], note: "Track points on hit/miss" },
+          ]} />
         <Slide transition={["fade"]} bgColor="primary">
+          <Heading size={4} caps lineHeight={1} textColor="secondary">
+            Next Steps: scale it up
+          </Heading>
+          {<Image height="60vh" src={ images.whackMole.replace("/", "") } />}
+        </Slide>
+        <Slide transition={["fade"]} bgColor="quinternary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Problem: my head exloded. Where can I learn more?
           </Heading>
@@ -496,27 +546,27 @@ export default class Presentation extends React.Component {
             <List textColor="tertiary" size={4} style={{listStyleType: 'none'}}>
               <ListItem>🖥️ Tons of resources online</ListItem>
               <ListItem>📚 Get a kit and start hacking!</ListItem>
-              <ListItem bold>🎉Come to IoT guild!<br />(Alternating Thursdays at 2)</ListItem>
+              <ListItem bold>🎉Come to IoT guild!</ListItem>
               <ListItem>or...</ListItem>
             </List>
           </Appear>
         </Slide>
-        <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={1} fit caps lineHeight={1} textColor="primary">
             A.M.A. Time.
           </Heading>
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+          <Heading size={1} fit caps lineHeight={1} textColor="quinternary">
             Questions?
           </Heading>
-          <Text margin="10px 0 0" textColor="secondary" size={2}>
+          <Text margin="10px 0 0" textColor="tertiary" size={2}>
             🙋‍♂️🙇‍♀️🙋‍♀️🙅‍♂️🙆‍♀️🙇‍♂️😴🙋‍♂️
           </Text>
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
-          <Heading size={1} fit caps lineHeight={1} textColor="secondary">
+          <Heading size={1} fit caps lineHeight={1} textColor="tertiary">
             Thanks!
           </Heading>
-          <Heading margin="10px 0 0" textColor="secondary" size={1}>
+          <Heading margin="10px 0 0" textColor="tertiary" size={1}>
             ⚡🎸🤘
           </Heading>
         </Slide>
