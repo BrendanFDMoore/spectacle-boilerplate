@@ -33,6 +33,8 @@ const images = {
   city: require("../assets/city.jpg"),
   afraidToAsk: require("../assets/afraid-to-ask.jpg"),
   bootyBump: require("../assets/bootybump.png"),
+  brendan1: require("../assets/bm1.png"),
+  brendan2: require("../assets/bm2.png"),
   logo: require("../assets/formidable-logo.svg"),
   interaction: require("../assets/interaction_diagram.svg"),
   physical: require("../assets/art-mco-lets-get-physical-blank.png"),
@@ -87,10 +89,14 @@ export default class Presentation extends React.Component {
           </BlockQuote>
         </Slide>
         <Slide transition={["fade"]} bgColor="black">
-          <Image height="80vh" src={ images.physical.replace("/", "") } />
+          <Image height="10vh" src={ images.brendan2.replace("/", "") } />
+          <Appear>
+            <Image height="70vh" src={ images.physical.replace("/", "") } />
+          </Appear>
         </Slide>
         <Slide transition={["fade"]} bgColor="black">
-          <Image height="80vh" src={ images.physicalcomp.replace("/", "") } />
+          <Image height="10vh" src={ images.brendan2.replace("/", "") } />        
+          <Image height="70vh" src={ images.physicalcomp.replace("/", "") } />
         </Slide>
         <Slide transition={["fade"]} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
